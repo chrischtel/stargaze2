@@ -19,6 +19,3 @@ anyhow = "1.0.80"
 # [[bench]]
 # name = "example"
 # harness = false
-
-[env]
-API_KEY = ""

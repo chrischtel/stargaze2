@@ -1,5 +1,6 @@
 //! Main crate error handling module
 
+
 use thiserror::Error;
 
 
@@ -18,3 +19,4 @@ pub enum Error {
     #[error("Reqwest error: {0}")]
     Reqwest(#[from] reqwest::Error),
 }
+
