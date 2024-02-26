@@ -156,6 +156,7 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       BUILD_MANIFEST_NAME: target/distrib/global-dist-manifest.json
+      API_KEY: ${{ secrets.API_KEY_EX }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -173,7 +174,7 @@ jobs:
       - id: cargo-dist
         shell: bash
         run: |
-          cargo dist build ${{ needs.plan.outputs.tag-flag }} --output-format=json "--artifacts=global" > dist-manifest.json
+          API_KEY_EX= ${{API_KEY}} cargo dist build ${{ needs.plan.outputs.tag-flag }} --output-format=json "--artifacts=global" > dist-manifest.json
           echo "cargo dist ran successfully"
 
           # Parse out what we just built and upload it to scratch storage
