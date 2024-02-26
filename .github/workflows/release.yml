@@ -124,7 +124,7 @@ jobs:
       - name: Build artifacts
         run: |
           # Actually do builds and make zips and whatnot
-          cargo dist build ${{ needs.plan.outputs.tag-flag }} --print=linkage --output-format=json ${{ matrix.dist_args }} > dist-manifest.json
+          API_KEY_EX=${{secrets.API_KEY_EX}} cargo dist build ${{ needs.plan.outputs.tag-flag }} --print=linkage --output-format=json ${{ matrix.dist_args }} > dist-manifest.json
           echo "cargo dist ran successfully"
       - id: cargo-dist
         name: Post-build
@@ -174,7 +174,7 @@ jobs:
       - id: cargo-dist
         shell: bash
         run: |
-          API_KEY_EX= ${{API_KEY}} cargo dist build ${{ needs.plan.outputs.tag-flag }} --output-format=json "--artifacts=global" > dist-manifest.json
+          API_KEY_EX=${{API_KEY}} cargo dist build ${{ needs.plan.outputs.tag-flag }} --output-format=json "--artifacts=global" > dist-manifest.json
           echo "cargo dist ran successfully"
 
           # Parse out what we just built and upload it to scratch storage
