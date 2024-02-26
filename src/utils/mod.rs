@@ -2,3 +2,4 @@
 use crate::prelude::*;
 
 pub mod env;
+pub mod weather_types;

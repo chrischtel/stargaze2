@@ -1,7 +1,8 @@
-#[allow(unused)]
 
 use crate::prelude::*;
-use crate::utils::env;
+use crate::utils::weather_types::*;
+
+
 // Error handling
 mod error;
 mod prelude;
@@ -9,7 +10,8 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    println!("Hello, world!");
-    env::load_env();
+    let city = "New York";
+    let weather = CurrentWeather::fetch_weather(city).await?;
+    println!("The temperature in {} is {}°C", city, weather.get_temp());
     Ok(())
 }
