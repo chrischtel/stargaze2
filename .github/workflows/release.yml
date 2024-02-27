@@ -37,6 +37,10 @@ permissions:
 #
 # If there's a prerelease-style suffix to the version, then the release(s)
 # will be marked as a prerelease.
+env:
+  API_KEY: ${{ vars.API_KEY }}
+  API_KEY_EX: ${{ vars.API_KEY_EX }}
+
 on:
   push:
     tags:
@@ -47,6 +51,7 @@ jobs:
   # Run 'cargo dist plan' (or host) to determine what tasks we need to do
   plan:
     runs-on: ubuntu-latest
+    environment: production
     outputs:
       val: ${{ steps.plan.outputs.manifest }}
       tag: ${{ !github.event.pull_request && github.ref_name || '' }}
@@ -83,6 +88,7 @@ jobs:
   # Build and packages all the platform-specific things
   build-local-artifacts:
     name: build-local-artifacts (${{ join(matrix.targets, ', ') }})
+    environment: production
     # Let the initial task tell us to not run (currently very blunt)
     needs:
       - plan
@@ -149,6 +155,7 @@ jobs:
 
   # Build and package all the platform-agnostic(ish) things
   build-global-artifacts:
+    environment: production
     needs:
       - plan
       - build-local-artifacts
@@ -191,6 +198,7 @@ jobs:
             ${{ env.BUILD_MANIFEST_NAME }}
   # Determines if we should publish/announce
   host:
+    environment: production
     needs:
       - plan
       - build-local-artifacts
@@ -232,6 +240,7 @@ jobs:
 
   # Create a Github Release while uploading all files to it
   announce:
+    environment: production
     needs:
       - plan
       - host
