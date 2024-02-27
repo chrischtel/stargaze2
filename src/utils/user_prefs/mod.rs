@@ -1,28 +1,3 @@
-
-// use std::fs::File;
-// use std::io::{self, Read, Write};
-// use std::path::Path;
-
-// const PREFS_FILE: &str = "prefs.txt";
-
-// pub fn save_city(city: &str) -> io::Result<()> {
-//     let mut file = File::create(PREFS_FILE)?;
-//     file.write_all(city.as_bytes())?;
-//     Ok(())
-// }
-
-// pub fn load_city() -> io::Result<Option<String>> {
-//     let path = Path::new(PREFS_FILE);
-//     if path.exists() {
-//         let mut file = File::open(PREFS_FILE)?;
-//         let mut city = String::new();
-//         file.read_to_string(&mut city)?;
-//         Ok(Some(city))
-//     } else {
-//         Ok(None)
-//     }
-// }
-
 use std::fs::File;
 use std::io::{self, Read, Write};
 use std::path::PathBuf;

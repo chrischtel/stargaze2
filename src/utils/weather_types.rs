@@ -23,7 +23,7 @@ impl CurrentWeather {
         let response = reqwest::get(url).await.unwrap().json::<Weather>().await;
 
         match response {
-            Err(e) => return Err(Error::Reqwest(e)),
+            Err(e) => Err(Error::Reqwest(e)),
             Ok(weather) => Ok(weather.current),
             
         }     
