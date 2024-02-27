@@ -1,8 +1,11 @@
 
 
 
+use std::env;
+
 use crate::prelude::*;
 use crate::utils::cli::get_user_input;
+use crate::utils::user_prefs::delete_prefs;
 use crate::utils::user_prefs::load_city;
 use crate::utils::user_prefs::save_city;
 use crate::utils::weather_types::*;
@@ -16,6 +19,15 @@ mod utils;
 #[tokio::main]
 async fn main() -> Result<()> {
     //let city = cli::get_user_input("Enter a city: ")?;
+
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() > 1 && args[1] == "clean" {
+        delete_prefs()?;
+        println!("Successfully cleaned user preferences.");
+        return Ok(());
+    }
+    
     let default_city = load_city()?;
     let prompt = match &default_city {
         Some(city) => format!("Enter a city (recent is {}): ", city),

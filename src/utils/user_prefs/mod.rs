@@ -1,4 +1,4 @@
-use std::fs::File;
+use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::PathBuf;
 use dirs::home_dir;
@@ -9,6 +9,14 @@ fn get_prefs_path() -> io::Result<PathBuf> {
     let mut path = home_dir().ok_or(io::Error::new(io::ErrorKind::NotFound, "Home directory not found"))?;
     path.push(PREFS_FILE);
     Ok(path)
+}
+
+pub fn delete_prefs() -> io::Result<()> {
+    let path = get_prefs_path()?;
+    if path.exists() {
+        fs::remove_file(path)?;
+    }
+    Ok(())
 }
 
 pub fn save_city(city: &str) -> io::Result<()> {
