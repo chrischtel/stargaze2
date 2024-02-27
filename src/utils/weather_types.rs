@@ -12,8 +12,8 @@ pub struct Weather {
 #[derive(Deserialize)]
 pub struct CurrentWeather {
     pub temperature: f64,
-    // pub weather_description: Vec<String>,
-    // pub clouds: i64,
+    pub weather_descriptions: Vec<String>,
+    pub cloudcover: i64,
 }
 
 impl CurrentWeather {
@@ -36,8 +36,8 @@ impl CurrentWeather {
 // traits
 pub trait WeatherData {
     fn get_temp(&self) -> f64;
-    // fn get_weather_description(&self) -> &Vec<String>;
-    // fn get_clouds(&self) -> i64;
+    fn get_weather_descriptions(&self) -> &Vec<String>;
+    fn get_cloudcover(&self) -> i64;
 }
 
 impl WeatherData for CurrentWeather {
@@ -45,12 +45,12 @@ impl WeatherData for CurrentWeather {
         self.temperature
     }
 
-    // fn get_weather_description(&self) -> &Vec<String> {
-    //     &self.weather_description
-    // }
+    fn get_weather_descriptions(&self) -> &Vec<String> {
+        &self.weather_descriptions
+    }
 
-    // fn get_clouds(&self) -> i64 {
-    //     self.clouds
-    // }
+    fn get_cloudcover(&self) -> i64 {
+        self.cloudcover
+    }
 }
 
