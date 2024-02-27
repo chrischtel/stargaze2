@@ -1,5 +1,7 @@
 name: Rust
 
+run-name: Stargaze Environment
+
 on:
   push:
     branches: [ "master" ]
@@ -13,7 +15,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: production
     steps:
     - uses: actions/checkout@v3
     - name: EnvSet
