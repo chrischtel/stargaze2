@@ -1,7 +1,5 @@
 name: Rust
 
-run-name: Stargaze Environment
-
 on:
   push:
     branches: [ "master" ]
