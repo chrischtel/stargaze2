@@ -18,8 +18,6 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    //let city = cli::get_user_input("Enter a city: ")?;
-
     let args: Vec<String> = env::args().collect();
 
     if args.len() > 1 && args[1] == "clean" {
@@ -27,19 +25,28 @@ async fn main() -> Result<()> {
         println!("Successfully cleaned user preferences.");
         return Ok(());
     }
-    
+
     let default_city = load_city()?;
     let prompt = match &default_city {
-        Some(city) => format!("Enter a city (recent is {}): ", city),
+        Some(city) => format!("Enter a city (default is {}): ", city),
         None => String::from("Enter a city: "),
     };
 
-    let mut city = get_user_input(prompt.as_str())?;
+    let mut city = get_user_input(&prompt)?;
     if city.is_empty() {
-        city = default_city.unwrap_or_else(|| String::from("Unknown City"));
+        match default_city {
+            Some(default_city) => city = default_city,
+            None => {
+                println!("Please enter a city.");
+                return Ok(());
+            }
+        }
     }
-    
+
+    // Always save the city entered by the user
     save_city(&city)?;
+
+
     let weather = CurrentWeather::fetch_weather(&city).await?;
     println!("The temperature in {} is {}°C", city, weather.get_temp());
     println!("The weather is: {}", weather.get_weather_descriptions()[0]);
