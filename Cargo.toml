@@ -1,6 +1,6 @@
 [package]
 name = "stargaze"
-version = "0.0.2"
+version = "0.0.2-alpha"
 edition = "2021"
 repository = "https://github.com/chrischtel/stargaze"
 authors = ["Christian Brendlin <christian@brendlinonline.de>"]
