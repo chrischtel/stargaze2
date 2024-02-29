@@ -29,10 +29,11 @@ async fn main() -> Result<()> {
     let default_city = load_city()?;
     let prompt = match &default_city {
         Some(city) => format!("Enter a city (default is {}): ", city),
-        None => String::from("Enter a city: "),
+        None => String::from("You need to enter a city:"),
     };
-
+    
     let mut city = get_user_input(&prompt)?;
+    
     if city.is_empty() {
         match default_city {
             Some(default_city) => city = default_city,
